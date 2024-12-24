@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import connectdb from './config/db.js';
 import morgan from 'morgan';
-
+import authRoute from './routes/authRoute.js';
 dotenv.config();
 
 
@@ -16,6 +16,10 @@ app.use(express.json());
 connectdb();
 
 // Routes
+
+app.use('/api/auth', authRoute);
+
+
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
