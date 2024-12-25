@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import connectdb from './config/db.js';
 import morgan from 'morgan';
 import authRoute from './routes/authRoute.js';
+import categoryRoutes from './routes/categoryRoutes.js';
+
 import cors from 'cors';
 dotenv.config();
 
@@ -20,6 +22,7 @@ connectdb();
 // Routes
 
 app.use('/api/auth', authRoute);
+app.use('/api/category', categoryRoutes);
 
 
 app.get('/', (req, res) => {
