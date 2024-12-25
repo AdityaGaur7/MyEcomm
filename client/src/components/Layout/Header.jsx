@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import './Header.css'
 const Header = () => {
   return (
     <div className="container-fluid bg-light p-3 flex-row justify-content-between">

@@ -2,7 +2,7 @@ import Layout from '../components/Layout/Layout'
 
 const About = () => {
   return (
-    <Layout>
+    <Layout title={"About"} description={"About Us"}>
     <div>About</div>
     </Layout>
   )

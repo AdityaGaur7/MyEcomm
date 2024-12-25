@@ -1,10 +1,10 @@
-import Layout from '../components/Layout/Layout'
+import Layout from "../components/Layout/Layout";
 const Contact = () => {
   return (
-    <Layout>
-    <div>Contact</div>
+    <Layout title={"Contact"} description={"Contact Us"}>
+      <div>Contact</div>
     </Layout>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;

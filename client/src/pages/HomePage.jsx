@@ -1,11 +1,15 @@
-import Layout from '../components/Layout/Layout'
+import Layout from "../components/Layout/Layout";
 const HomePage = () => {
   return (
-    <Layout>
-    <div>HomePage</div>
-   
+    <Layout
+      title={"Home"}
+      description={"Homepage"}
+      keywords={"electronics, buy electronics, cheap electronics"}
+      author={"ProShop"}
+    >
+      <div>HomePage</div>
     </Layout>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
