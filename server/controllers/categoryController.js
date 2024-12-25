@@ -66,10 +66,10 @@ export const updateCategoryContoller = async (req, res) => {
 
 export const CategoryContoller = async (req, res) => {
     try {
-        const categories = await Category.find({});
+        const category = await Category.find({});
         res.status(200).send({
             success: true,
-            categories,
+            category,
             message: 'Categories fetched successfully'
         });
     }
