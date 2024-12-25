@@ -7,6 +7,8 @@ import Policy from "./pages/Policy";
 import Pagenotfound from "./pages/Pagenotfound";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
+import Dashboard from "./pages/user/Dashboard";
+import Private from "./components/Routes/Private";
 function App() {
   return (
     <div>
@@ -17,6 +19,9 @@ function App() {
         <Route path="/policy" element={<Policy />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Private />}>
+          <Route path="" element={<Dashboard />} />
+        </Route>
         <Route path="*" element={<Pagenotfound />} />
       </Routes>
     </div>
