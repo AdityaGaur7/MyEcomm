@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Layout from "../Layout/Layout";
+import Layout from "../../components/Layout/Layout";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Reactapi } from "../../pages/api";
+import { Reactapi } from "../../api";
 const Register = () => {
   const Navigate = useNavigate();
   const [formData, setFormData] = useState({

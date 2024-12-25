@@ -24,7 +24,7 @@ const registerController = async (req, res) => {
         res.status(201).send({
             success: true,
             message: 'User created successfully',
-            data: user
+            user: user
 
         });
 
@@ -62,7 +62,7 @@ const loginController = async (req, res) => {
         res.status(200).send({
             success: true,
             message: 'User logged in successfully',
-            data: {
+            user: {
                 name: user.name,
                 email: user.email,
                 phone: user.phone,

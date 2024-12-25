@@ -5,8 +5,8 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Policy from "./pages/Policy";
 import Pagenotfound from "./pages/Pagenotfound";
-import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
 function App() {
   return (
     <div>

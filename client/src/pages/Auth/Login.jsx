@@ -1,16 +1,19 @@
 import { useState } from "react";
-import Layout from "../Layout/Layout";
+import Layout from "../../components/Layout/Layout";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Reactapi } from "../../pages/api";
-
+import { Reactapi } from "../../api";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../../Context/auth";
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const {setAuth } = useAuth();
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +26,13 @@ const Login = () => {
       const res = await axios.post(`${Reactapi}/api/auth/login`, formData);
       if (res && res.data.success) {
         toast.success(res.data.message);
-        // Navigate to the dashboard or another page
+      
+        setAuth({
+          user: res.data.user,
+          token: res.data.token,
+        });
+        localStorage.setItem("auth", JSON.stringify(res.data));
+
         navigate("/");
       } else {
         toast.error(res.data.message);
@@ -73,6 +82,12 @@ const Login = () => {
             Login
           </button>
         </form>
+        <p className="mt-3">
+          Dont have an account?{" "}
+          <NavLink to="/register" className="text-primary">
+            Register
+          </NavLink>
+          </p>
       </div>
     </Layout>
   );
