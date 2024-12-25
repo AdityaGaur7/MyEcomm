@@ -3,11 +3,11 @@ import axios from "axios";
 import { Reactapi } from "../api";
 import toast from "react-hot-toast";
 import Layout from "../components/Layout/Layout";
-import { useAuth } from "../Context/auth";
-import { NavLink } from "react-router-dom";
+
+import { NavLink, useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-  const { auth } = useAuth;
+  const navigate = useNavigate();
   const [category, setCategory] = useState([]);
   const [product, setProduct] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -91,9 +91,12 @@ const HomePage = () => {
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">${product.price}</p>
-                  <NavLink href="#" className="btn btn-primary">
+                  <button
+                    onClick={() => navigate(`/product/${product.slug}`)}
+                    className="btn btn-primary"
+                  >
                     View Details
-                  </NavLink>
+                  </button>
                 </div>
               </div>
             ))}
