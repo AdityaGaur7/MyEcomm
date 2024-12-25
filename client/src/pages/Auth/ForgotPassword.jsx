@@ -1,19 +1,18 @@
-import { useState } from "react";
 import Layout from "../../components/Layout/Layout";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Reactapi } from "../../api";
-import { NavLink } from "react-router-dom";
-import { useAuth } from "../../Context/auth";
-const Login = () => {
+
+const ForgotPassword = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
+    newPassword: "",
+    answer: "",
   });
-  const { setAuth } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,17 +22,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${Reactapi}/api/auth/login`, formData);
+      const res = await axios.post(
+        `${Reactapi}/api/auth/forgot-password`,
+        formData
+      );
       if (res && res.data.success) {
         toast.success(res.data.message);
 
-        setAuth({
-          user: res.data.user,
-          token: res.data.token,
-        });
-        localStorage.setItem("auth", JSON.stringify(res.data));
-
-        navigate(location.state || "/");
+        navigate("/login");
       } else {
         toast.error(res.data.message);
       }
@@ -44,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <Layout title={"Login"} description={"Login"}>
+    <Layout title={"ForgotPassword"} description={"ForgotPassword"}>
       <div className="container col-md-4 offset-md-4 mt-5">
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -60,20 +56,32 @@ const Login = () => {
               onChange={handleChange}
               required
             />
-            <div id="emailHelp" className="form-text">
-              We will never share your email with anyone else.
-            </div>
           </div>
           <div className="mb-3">
             <label htmlFor="password" className="form-label">
-              Password
+              New Password
             </label>
             <input
               type="password"
               className="form-control"
-              id="password"
-              name="password"
-              value={formData.password}
+              id="newPassword"
+              name="newPassword"
+              value={formData.newPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">
+              Answer
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="answer"
+              placeholder="Enter your security answer"
+              name="answer"
+              value={formData.answer}
               onChange={handleChange}
               required
             />
@@ -81,26 +89,13 @@ const Login = () => {
 
           <div className="d-flex">
             <button type="submit" className="btn btn-primary">
-              Login
-            </button>
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={() => navigate("/forgotpassword")}
-            >
-              Forgot Password
+              Reset
             </button>
           </div>
         </form>
-        <p className="mt-3">
-          Dont have an account?
-          <NavLink to="/register" className="text-primary">
-            Register
-          </NavLink>
-        </p>
       </div>
     </Layout>
   );
 };
 
-export default Login;
+export default ForgotPassword;

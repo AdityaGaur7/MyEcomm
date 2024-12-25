@@ -12,6 +12,7 @@ const Register = () => {
     password: "",
     phone: "",
     address: "",
+    answer:""
   });
 
   const handleChange = (e) => {
@@ -99,6 +100,21 @@ const Register = () => {
               id="phone"
               name="phone"
               value={formData.phone}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="answer" className="form-label">
+              answer
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="answer"
+              name="answer"
+              placeholder="What is your favourite color?"
+              value={formData.answer}
               onChange={handleChange}
               required
             />

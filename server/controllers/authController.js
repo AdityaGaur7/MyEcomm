@@ -2,13 +2,13 @@ import User from '../models/userModel.js';
 import JWT from 'jsonwebtoken';
 import { hashPassword } from '../helpers/authHelper.js';
 import { comparePassword } from '../helpers/authHelper.js';
-const registerController = async (req, res) => {
+export const registerController = async (req, res) => {
 
     try {
 
-        const { name, email, password, phone, address } = req.body;
+        const { name, email, password, phone, address ,answer} = req.body;
 
-        if (!name || !email || !password || !phone || !address) {
+        if (!name || !email || !password || !phone || !address || !answer) {
             return res.status(400).send({ message: 'Please enter all fields' });
         }
 
@@ -17,7 +17,7 @@ const registerController = async (req, res) => {
             return res.status(400).send({ message: 'User already exists' });
         }
         const hashedPassword = await hashPassword(password);
-        const user = new User({ name, email, password: hashedPassword, phone, address });
+        const user = new User({ name, email, password: hashedPassword, phone, address,answer });
         await user.save();
 
         await user.save();
@@ -38,7 +38,7 @@ const registerController = async (req, res) => {
 }
 
 
-const loginController = async (req, res) => {
+export const loginController = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
@@ -78,4 +78,39 @@ const loginController = async (req, res) => {
 
 }
 
-export { registerController, loginController };
+export const forgotPasswordController = async (req, res) => {
+    try{
+
+        const {email,answer,newPassword} = req.body;
+        if (!email || !answer || !newPassword) {
+            return res.status(400).send({ message: 'Please enter all fields' });
+        }
+
+        const user = await User.findOne({
+            email,
+            answer
+        });
+        if (!user) {
+            return res.status(400).send({ 
+                success: false,
+                message: 'Invalid credentials'
+             });
+        }
+        const hashedPassword = await hashPassword(newPassword);
+        await User.findByIdAndUpdate(user._id, { password: hashedPassword });
+        res.status(200).send({
+            success: true,
+            message: 'Password reset successful'
+        });
+
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).send(
+           { success: false,
+            message: 'Error resetting password',
+            error}
+        );
+    }
+}
+
