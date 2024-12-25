@@ -5,7 +5,7 @@ import axios from "axios";
 import Spinner from "../Spinner";
 import { Reactapi } from "../../api";
 
-export default function Private() {
+export default function AdminRoute() {
   const { auth } = useAuth();
   const [ok, setOk] = useState(false);
 
@@ -23,5 +23,5 @@ export default function Private() {
     }
   }, [auth?.token]);
 
-  return ok ? <Outlet /> : <Spinner />;
+  return ok ? <Outlet /> : <Spinner path="" />;
 }
