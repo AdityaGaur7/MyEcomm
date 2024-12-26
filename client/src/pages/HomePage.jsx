@@ -3,15 +3,15 @@ import axios from "axios";
 import { Reactapi } from "../api";
 import toast from "react-hot-toast";
 import Layout from "../components/Layout/Layout";
-
-import { NavLink, useNavigate } from "react-router-dom";
+import { useCart } from "../Context/cart";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState([]);
   const [product, setProduct] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
-
+  const { cart, setCart } = useCart();
   const getallCategory = async () => {
     try {
       const { data } = await axios.get(`${Reactapi}/api/category/get-category`);
@@ -96,6 +96,19 @@ const HomePage = () => {
                     className="btn btn-primary"
                   >
                     View Details
+                  </button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => {
+                      setCart([...cart, product]);
+                      localStorage.setItem( 
+                        "cart",
+                        JSON.stringify([...cart, product])
+                      );
+                      toast.success("Product Added to Cart");
+                    }}
+                  >
+                    Add to Cart
                   </button>
                 </div>
               </div>

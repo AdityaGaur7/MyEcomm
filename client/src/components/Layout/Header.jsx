@@ -1,9 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../Context/auth";
 import toast from "react-hot-toast";
+import { useCart } from "../../Context/cart";
 import "./Header.css";
 const Header = () => {
   const { auth, setAuth } = useAuth();
+  const { cart } = useCart();
   const handleLogout = () => {
     setAuth({
       user: null,
@@ -55,7 +57,7 @@ const Header = () => {
         </li>
         <li className="nav-item">
           <NavLink to="/cart" className="nav-link">
-            Cart(0)
+            Cart{cart?.length}
           </NavLink>
         </li>
 

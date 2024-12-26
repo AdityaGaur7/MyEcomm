@@ -1,31 +1,24 @@
-import axios from "axios";
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState, useContext, createContext, useEffect } from "react";
 
 const CartContext = createContext();
 
-const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({
-    keyword:"",
-    token: "",
-  });
-
-  axios.defaults.headers.common["Authorization"] = auth?.token;
+const CartProvider = ({ children }) => {
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    const auth = localStorage.getItem("auth");
-    if (auth) {
-      const { user, token } = JSON.parse(auth);
-      setAuth({ user, token });
+    const existingcart = localStorage.getItem("cart");
+    if (existingcart) {
+      setCart(JSON.parse(existingcart));
     }
   }, []);
 
   return (
-    <CartContext.Provider value={{ auth, setAuth }}>
+    <CartContext.Provider value={{ cart, setCart }}>
       {children}
     </CartContext.Provider>
   );
 };
-const useAuth = () => {
+const useCart = () => {
   return useContext(CartContext);
 };
-export { AuthProvider, useAuth };
+export { CartProvider, useCart };
