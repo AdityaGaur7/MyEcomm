@@ -63,6 +63,7 @@ export const loginController = async (req, res) => {
             success: true,
             message: 'User logged in successfully',
             user: {
+                id: user._id,
                 name: user.name,
                 email: user.email,
                 phone: user.phone,
@@ -117,3 +118,32 @@ export const forgotPasswordController = async (req, res) => {
     }
 }
 
+export const updateProfileController = async (req, res) => {
+    try {
+        const { name, email, phone, address, password } = req.body;
+        const user
+            = await User.findById(req.user._id);
+        if (!user) {
+            return res.status(400).send({ message: 'User not found' });
+        }
+        const hashedPassword = password ? await hashPassword(password) : undefined;
+        const updatedUser = await User.findByIdAndUpdate(req.user._id, {
+            name: name || user.name,
+            password: hashedPassword || user.password,
+            phone: phone || user.phone,
+            address: address || user.address
+        }
+            , { new: true }
+
+        );
+        res.status(200).send({
+            success: true,
+            message: 'Profile updated successfully',
+            updatedUser
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).send({ message: 'Error updating profile' });
+    }
+}
