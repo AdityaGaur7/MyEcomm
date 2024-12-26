@@ -8,12 +8,12 @@ import { CartProvider } from "./Context/cart.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <StrictMode>
+    
       <AuthProvider>
         <CartProvider>
           <App />
         </CartProvider>
       </AuthProvider>
-    </StrictMode>
+    
   </BrowserRouter>
 );

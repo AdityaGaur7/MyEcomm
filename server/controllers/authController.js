@@ -2,6 +2,7 @@ import User from '../models/userModel.js';
 import JWT from 'jsonwebtoken';
 import { hashPassword } from '../helpers/authHelper.js';
 import { comparePassword } from '../helpers/authHelper.js';
+import Order from '../models/orderModel.js';
 export const registerController = async (req, res) => {
 
     try {
@@ -145,5 +146,20 @@ export const updateProfileController = async (req, res) => {
     catch (err) {
         console.log(err);
         res.status(500).send({ message: 'Error updating profile' });
+    }
+}
+
+
+export const getOrdersController = async (req, res) => {
+    try {
+        console.log(req.user.id);
+        const orders = await Order.find({
+            buyer: req.user.id,
+        }).populate("products").populate("buyer", "name");
+        res.status(200).json({ success: true, orders });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, error: error.message });
     }
 }

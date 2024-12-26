@@ -44,7 +44,7 @@ export const verifyPayment = async (req, res) => {
       // Create and save order in DB
       const newOrder = new Order({
         products,
-        paymentIntent: response,
+        payment: response,
         buyer,
         address,
         totalPrice,
@@ -61,3 +61,4 @@ export const verifyPayment = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
+
