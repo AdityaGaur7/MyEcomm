@@ -17,6 +17,10 @@ const HomePage = () => {
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(6); // Number of products per page
+
   const getallCategory = async () => {
     try {
       const { data } = await axios.get(`${Reactapi}/api/category/get-category`);
@@ -81,10 +85,18 @@ const HomePage = () => {
 
     setFilteredProducts(tempProducts);
   };
-  const ResetFilter = () => {
-    setChecked([]);
-    setRadio([]);
-    setFilteredProducts(product);
+
+  // Pagination Logic
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -97,7 +109,12 @@ const HomePage = () => {
       <div className="container mt-4">
         <div className="row">
           <div className="col-md-2">
-            {/* <Button onClick={ResetFilter} className="btn btn-secondary">Reset Filter</Button> */}
+            <Button
+              onClick={() => window.location.reload()}
+              className="btn btn-danger"
+            >
+              Reset Filter
+            </Button>
             <div className="text-center mb-3">Filter By Category</div>
             <ul className="d-flex flex-column">
               {category?.map((c) => (
@@ -129,7 +146,7 @@ const HomePage = () => {
           <div className="col-md-9">
             <div className="text-center mb-3">All Products</div>
             <div className="d-flex flex-wrap justify-content-center">
-              {filteredProducts.map((product) => (
+              {currentProducts.map((product) => (
                 <div
                   key={product._id}
                   className="card m-2"
@@ -137,7 +154,7 @@ const HomePage = () => {
                 >
                   <img
                     src={product.image}
-                    className="card-img -top"
+                    className="card-img-top"
                     alt={product.name}
                   />
                   <div className="card-body">
@@ -167,6 +184,49 @@ const HomePage = () => {
                 </div>
               ))}
             </div>
+
+            {/* Pagination Component */}
+            <nav aria-label="Page navigation example">
+              <ul className="pagination">
+                <li className="page-item">
+                  <a
+                    className="page-link"
+                    href="#"
+                    aria-label="Previous"
+                    onClick={() =>
+                      handlePageChange(currentPage > 1 ? currentPage - 1 : 1)
+                    }
+                  >
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                {[...Array(totalPages)].map((_, index) => (
+                  <li className="page-item" key={index + 1}>
+                    <a
+                      className="page-link"
+                      href="#"
+                      onClick={() => handlePageChange(index + 1)}
+                    >
+                      {index + 1}
+                    </a>
+                  </li>
+                ))}
+                <li className="page-item">
+                  <a
+                    className="page-link"
+                    href="#"
+                    aria-label="Next"
+                    onClick={() =>
+                      handlePageChange(
+                        currentPage < totalPages ? currentPage + 1 : totalPages
+                      )
+                    }
+                  >
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
