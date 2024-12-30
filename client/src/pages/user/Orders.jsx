@@ -56,18 +56,18 @@ const Orders = () => {
                       </thead>
                       <tbody>
                         <tr>
-                          <th>{index + 1}</th>
-                          <th>{order?.status}</th>
-                          <th>{order?.buyer?.name}</th>
-                          <th>{moment(order?.createdAt).fromNow()}</th>
-                          <th>
+                          <td>{index + 1}</td>
+                          <td>{order?.status}</td>
+                          <td>{order?.buyer?.name}</td>
+                          <td>{moment(order?.createdAt).fromNow()}</td>
+                          <td>
                             {order?.payment?.razorpay_payment_id ? (
                               <span className="text-success">Paid</span>
                             ) : (
                               <span className="text-danger">Pending</span>
                             )}
-                          </th>
-                          <th>{order?.products?.length}</th>
+                          </td>
+                          <td>{order?.products?.length}</td>
                         </tr>
                       </tbody>
                     </table>

@@ -10,7 +10,7 @@ const orderSchema = new mongoose.Schema({
     payment: {},
     buyer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     address: { type: String },
-    status: { type: String, default: 'pending', enum: ['pending', 'Processing', 'Shipped', 'delivered', 'cancel '] },
+    status: { type: String, default: 'Not Process', enum: ['Not Process', 'Processing', 'Shipped', 'delivered', 'cancel '] },
     totalPrice: { type: Number },
 }, { timestamps: true });
 

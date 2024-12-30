@@ -48,7 +48,7 @@ export const verifyPayment = async (req, res) => {
         buyer,
         address,
         totalPrice,
-        status: "pending",
+        status: "Not Process",
       });
 
       await newOrder.save();

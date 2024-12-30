@@ -20,6 +20,7 @@ import Profile from "./pages/user/Profile";
 import Products from "./pages/Admin/Products";
 import ProductDetails from "./pages/ProductDetails";
 import Cart from "./pages/Cart";
+import AdminOrders from "./pages/Admin/AdminOrders";
 function App() {
   return (
     <div>
@@ -36,6 +37,7 @@ function App() {
         <Route path="/dashboard" element={<Private />}>
           <Route path="user" element={<Dashboard />} />
           <Route path="user/orders" element={<Orders />} />
+
           <Route path="user/profile" element={<Profile />} />
         </Route>
         <Route path="/dashboard" element={<AdminRoute />}>
@@ -44,6 +46,7 @@ function App() {
           <Route path="admin/create-product" element={<CreateProduct />} />
           <Route path="admin/users" element={<Users />} />
           <Route path="admin/products" element={<Products />} />
+          <Route path="admin/orders" element={<AdminOrders />} />
         </Route>
         <Route path="*" element={<Pagenotfound />} />
       </Routes>

@@ -19,7 +19,7 @@ export const registerController = async (req, res) => {
         }
         const hashedPassword = await hashPassword(password);
         const user = new User({ name, email, password: hashedPassword, phone, address, answer });
-        await user.save();
+        
 
         await user.save();
         res.status(201).send({
@@ -162,4 +162,36 @@ export const getOrdersController = async (req, res) => {
         console.log(error);
         res.status(500).json({ success: false, error: error.message });
     }
+}
+
+export const getAllOrdersController = async (req, res) => {
+    try {
+        const orders = await Order.find().populate("products").populate("buyer", "name").sort({ createdAt: -1 });
+        res.status(200).json({ success: true, orders });
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+}
+
+export const orderStatusController = async (req, res) => {
+    try {
+        const { orderId } = req.params;
+        const { status } = req.body;
+        const order = await Order.findByIdAndUpdate(orderId, { status }, { new: true });
+
+        if (!order) {
+            return res.status(404).json({
+                success: false, message: 'Order not found'
+            });
+        }
+
+        res.status(200).json({ success: true, message: 'Order status updated successfully',order } );
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+
 }
