@@ -50,11 +50,11 @@ const Header = () => {
             </li>
           </ul>
         </li>
-        <li className="nav-item">
+        {/* <li className="nav-item">
           <NavLink to="/category" className="nav-link">
             Category
           </NavLink>
-        </li>
+        </li> */}
         <li className="nav-item">
           <NavLink to="/cart" className="nav-link">
             Cart{cart?.length}
