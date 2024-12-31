@@ -1,0 +1,176 @@
+/* Custom Variables */
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --accent-color: #e74c3c;
+  --dark-color: #2c3e50;
+  --light-color: #ecf0f1;
+  --gray-color: #95a5a6;
+}
+
+/* Custom Card Styles */
+.custom-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-radius: 12px;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Button Styles */
+.btn-custom-primary {
+  background: linear-gradient(45deg, var(--primary-color), #2980b9);
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-custom-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+}
+
+/* Custom Form Styles */
+.custom-form-control {
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  transition: all 0.3s ease;
+}
+
+.custom-form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Custom Section Styles */
+.section-header {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.section-header::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--primary-color);
+}
+
+/* Animation Classes */
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Custom Icons */
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, var(--primary-color), #2980b9);
+  color: white;
+  margin: 0 auto 1.5rem;
+}
+
+/* Custom Shadows */
+.shadow-custom {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Hero Section Styles */
+.hero-section {
+  background: linear-gradient(135deg, #3498db, #2ecc71);
+  padding: 80px 0;
+  color: white;
+  margin-bottom: 4rem;
+}
+
+/* Grid Layout Styles */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2.5rem;
+  }
+  
+  .lead {
+    font-size: 1.1rem;
+  }
+} 
+
+/* Cart Specific Styles */
+.cart-item {
+  transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+  background-color: #f8f9fa;
+}
+
+.cart-image {
+  transition: transform 0.3s ease;
+}
+
+.cart-image:hover {
+  transform: scale(1.05);
+}
+
+.quantity-control {
+  width: 120px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--primary-color);
+  background: white;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quantity-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Empty Cart Styles */
+.empty-cart {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-cart-icon {
+  font-size: 64px;
+  color: var(--gray-color);
+  margin-bottom: 20px;
+} 

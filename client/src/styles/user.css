@@ -1,0 +1,340 @@
+/* User Layout */
+.user-layout {
+  display: flex;
+  min-height: calc(100vh - 60px);
+  background: #f8f9fa;
+}
+
+.user-sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+  min-height: calc(100vh - 60px);
+  position: sticky;
+  top: 60px;
+  padding: 1.5rem;
+  color: white;
+  z-index: 1000;
+}
+
+.user-content {
+  flex: 1;
+  padding: 2rem;
+  background: #f8f9fa;
+}
+
+/* User Cards */
+.user-card {
+  background: white;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Stats Cards */
+.user-stat-card {
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.user-stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+/* Menu Styles */
+.user-menu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.user-menu-header {
+  padding: 1rem 0;
+}
+
+.user-menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.user-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.user-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.user-menu-item.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: 500;
+}
+
+.user-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  opacity: 0.9;
+}
+
+.user-menu-title {
+  font-size: 0.95rem;
+}
+
+.user-menu-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .user-layout {
+    flex-direction: column;
+  }
+
+  .user-sidebar {
+    width: 100%;
+    min-width: 100%;
+    position: relative;
+    top: 0;
+    min-height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .user-content {
+    width: 100%;
+  }
+
+  .user-menu-items {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .user-menu-item {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .user-menu-icon {
+    margin: 0 0 0.5rem 0;
+  }
+} 
+
+/* Order Page Styles */
+.status-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.products-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.product-item {
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.product-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation for cards */
+.user-card {
+  animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced Badge Styles */
+.badge {
+  padding: 0.5em 1em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Button Enhancements */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-light {
+  background: #f8f9fa;
+  border-color: #e9ecef;
+}
+
+.btn-light:hover {
+  background: #e9ecef;
+}
+
+/* Loading Spinner */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Empty State */
+.display-1 {
+  font-size: 4rem;
+  opacity: 0.5;
+}
+
+/* Responsive Images */
+.img-fluid {
+  object-fit: cover;
+  height: 80px;
+  width: 80px;
+}
+
+/* Order Details */
+.order-footer {
+  font-size: 0.9rem;
+}
+
+/* Status Colors */
+.bg-success-subtle {
+  background-color: rgba(25, 135, 84, 0.1);
+}
+
+.bg-warning-subtle {
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+.bg-info-subtle {
+  background-color: rgba(13, 202, 240, 0.1);
+}
+
+.bg-danger-subtle {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Hover Effects */
+.user-card {
+  transition: all 0.3s ease;
+}
+
+.user-card:hover {
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .order-footer {
+    text-align: center;
+  }
+  
+  .order-footer > div {
+    margin-bottom: 1rem;
+  }
+  
+  .order-footer > div:last-child {
+    margin-bottom: 0;
+  }
+} 
+
+/* Payment Method Card Styles */
+.payment-card {
+  transition: all 0.3s ease;
+}
+
+.payment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Settings Styles */
+.settings-section {
+  animation: fadeIn 0.5s ease;
+}
+
+.form-switch .form-check-input {
+  width: 3em;
+  height: 1.5em;
+  cursor: pointer;
+}
+
+.form-switch .form-check-input:checked {
+  background-color: #4b6cb7;
+  border-color: #4b6cb7;
+}
+
+/* Form Enhancements */
+.form-select {
+  height: 45px;
+  border-color: #e0e0e0;
+}
+
+.form-select:focus {
+  border-color: #4b6cb7;
+  box-shadow: 0 0 0 0.2rem rgba(75, 108, 183, 0.25);
+}
+
+/* Card Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

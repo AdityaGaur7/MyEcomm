@@ -1,0 +1,239 @@
+.admin-layout {
+  display: flex;
+  min-height: calc(100vh - 60px);
+  background: #f8f9fa;
+}
+
+.admin-sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: linear-gradient(180deg, #1a237e 0%, #283593 100%);
+  min-height: calc(100vh - 60px);
+  position: sticky;
+  top: 60px;
+  padding: 1.5rem;
+  color: white;
+  z-index: 1000;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 2rem;
+  background: #f8f9fa;
+  min-height: calc(100vh - 60px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    min-width: 100%;
+    position: relative;
+    top: 0;
+    min-height: auto;
+    margin-bottom: 1rem;
+  }
+
+  .admin-content {
+    width: 100%;
+  }
+} 
+
+/* Product Card Styles */
+.product-card {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  height: 200px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+}
+
+.product-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.1);
+}
+
+/* Search Input Styles */
+.input-group-text {
+  border-color: #e0e0e0;
+}
+
+.form-control:focus {
+  border-color: #3498db;
+  box-shadow: none;
+}
+
+/* Badge Styles */
+.badge {
+  padding: 0.5em 1em;
+  font-weight: 500;
+}
+
+/* Empty State Styles */
+.text-muted h4 {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+/* Loading Spinner */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Admin Menu Styles */
+.admin-menu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: calc(100vh - 90px);
+}
+
+.admin-menu-header {
+  padding: 1rem 0;
+  text-align: left;
+}
+
+.admin-menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.admin-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.admin-menu-item.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-weight: 500;
+}
+
+.admin-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  opacity: 0.9;
+}
+
+.admin-menu-title {
+  font-size: 0.95rem;
+}
+
+.admin-menu-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .admin-menu {
+    min-height: auto;
+  }
+
+  .admin-menu-items {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .admin-menu-item {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+
+  .admin-menu-icon {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .admin-menu-footer {
+    display: none;
+  }
+}
+
+/* Enhanced Sidebar Styles */
+.admin-sidebar {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Animation for menu items */
+.admin-menu-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-menu-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  background: white;
+  transition: width 0.3s ease;
+}
+
+.admin-menu-item:hover::after {
+  width: 100%;
+}
+
+.admin-menu-item.active::after {
+  width: 100%;
+}
+
+/* Icon animation */
+.admin-menu-item:hover .admin-menu-icon {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+} 

@@ -5,8 +5,9 @@ import toast from "react-hot-toast";
 import Layout from "../components/Layout/Layout";
 import { useCart } from "../Context/cart";
 import { useNavigate } from "react-router-dom";
-import { Checkbox, Radio, Button } from "antd";
+import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
+import { FiShoppingCart, FiHeart, FiFilter } from "react-icons/fi";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -16,10 +17,11 @@ const HomePage = () => {
   const { cart, setCart } = useCart();
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
+  const [showFilters, setShowFilters] = useState(false);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(6); // Number of products per page
+  const [productsPerPage] = useState(6);
 
   const getallCategory = async () => {
     try {
@@ -100,130 +102,155 @@ const HomePage = () => {
   };
 
   return (
-    <Layout
-      title={"Home"}
-      description={"Homepage"}
-      keywords={"electronics, buy electronics, cheap electronics"}
-      author={"ProShop"}
-    >
-      <div className="container mt-4">
-        <div className="row">
-          <div className="col-md-2">
-            <Button
-              onClick={() => window.location.reload()}
-              className="btn btn-danger"
-            >
-              Reset Filter
-            </Button>
-            <div className="text-center mb-3">Filter By Category</div>
-            <ul className="d-flex flex-column">
-              {category?.map((c) => (
-                <Checkbox
-                  key={c._id}
-                  className={`list-group-item d-flex${
-                    checked.includes(c._id) ? " active" : ""
-                  }`}
-                  onChange={(e) =>
-                    handleCategoryChange(e.target.checked, c._id)
-                  }
-                >
-                  {c?.name}
-                </Checkbox>
-              ))}
-            </ul>
-
-            <div className="text-center mb-3">Filter By Price</div>
-            <ul className="d-flex flex-column">
-              <Radio.Group onChange={(e) => setRadio(e.target.value)}>
-                {Prices.map((p) => (
-                  <div key={p.id}>
-                    <Radio value={p.array}>{p.name}</Radio>
-                  </div>
-                ))}
-              </Radio.Group>
-            </ul>
+    <Layout title={"Home"} description={"Homepage"}>
+      {/* Hero Section */}
+      <div className="bg-primary text-white py-5 mb-4">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-md-8 mx-auto text-center">
+              <h1 className="display-4 fw-bold mb-4">Discover Amazing Products</h1>
+              <p className="lead mb-4">Shop the latest trends with confidence</p>
+              <button className="btn btn-outline-light btn-lg">Shop Now</button>
+            </div>
           </div>
+        </div>
+      </div>
+
+      <div className="container">
+        {/* Mobile Filter Toggle */}
+        <div className="d-md-none mb-3">
+          <button 
+            className="btn btn-outline-primary w-100"
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <FiFilter className="me-2" />
+            {showFilters ? 'Hide Filters' : 'Show Filters'}
+          </button>
+        </div>
+
+        <div className="row">
+          {/* Filters Panel */}
+          <div className={`col-md-3 mb-4 ${showFilters ? 'd-block' : 'd-none d-md-block'}`}>
+            <div className="card shadow-sm">
+              <div className="card-body">
+                <div className="mb-4">
+                  <button
+                    onClick={() => window.location.reload()}
+                    className="btn btn-danger w-100"
+                  >
+                    Reset Filters
+                  </button>
+                </div>
+
+                <div className="mb-4">
+                  <h5 className="card-title">Categories</h5>
+                  <div className="d-flex flex-column gap-2">
+                    {category?.map((c) => (
+                      <Checkbox
+                        key={c._id}
+                        onChange={(e) => handleCategoryChange(e.target.checked, c._id)}
+                      >
+                        {c?.name}
+                      </Checkbox>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <h5 className="card-title">Price Range</h5>
+                  <Radio.Group 
+                    onChange={(e) => setRadio(e.target.value)}
+                    className="d-flex flex-column gap-2"
+                  >
+                    {Prices.map((p) => (
+                      <Radio key={p.id} value={p.array}>
+                        {p.name}
+                      </Radio>
+                    ))}
+                  </Radio.Group>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Products Grid */}
           <div className="col-md-9">
-            <div className="text-center mb-3">All Products</div>
-            <div className="d-flex flex-wrap justify-content-center">
+            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
               {currentProducts.map((product) => (
-                <div
-                  key={product._id}
-                  className="card m-2"
-                  style={{ width: "18rem" }}
-                >
-                  <img
-                    src={product.image}
-                    className="card-img-top"
-                    alt={product.name}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{product.name}</h5>
-                    <p className="card-text">${product.price}</p>
-                    <p className="card-text">{product.category._id}</p>
-                    <button
-                      onClick={() => navigate(`/product/${product.slug}`)}
-                      className="btn btn-primary"
-                    >
-                      View Details
-                    </button>
-                    <button
-                      className="btn btn-secondary mt-2"
-                      onClick={() => {
-                        setCart([...cart, product]);
-                        localStorage.setItem(
-                          "cart",
-                          JSON.stringify([...cart, product])
-                        );
-                        toast.success("Product Added to Cart");
-                      }}
-                    >
-                      Add to Cart
-                    </button>
+                <div key={product._id} className="col">
+                  <div className="card h-100 shadow-sm">
+                    <div className="position-relative">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="card-img-top"
+                        style={{ height: "200px", objectFit: "cover" }}
+                      />
+                      <button
+                        onClick={() => {
+                          setCart([...cart, product]);
+                          localStorage.setItem("cart", JSON.stringify([...cart, product]));
+                          toast.success("Added to cart");
+                        }}
+                        className="btn btn-light position-absolute top-0 end-0 m-2"
+                      >
+                        <FiShoppingCart />
+                      </button>
+                    </div>
+                    
+                    <div className="card-body">
+                      <h5 className="card-title">{product.name}</h5>
+                      <div className="d-flex justify-content-between align-items-center mb-3">
+                        <span className="h5 text-primary mb-0">
+                          ${product.price}
+                        </span>
+                        <button className="btn btn-outline-danger btn-sm">
+                          <FiHeart />
+                        </button>
+                      </div>
+                      <button
+                        onClick={() => navigate(`/product/${product.slug}`)}
+                        className="btn btn-outline-primary w-100"
+                      >
+                        View Details
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Pagination Component */}
-            <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a
+            {/* Pagination */}
+            <nav className="mt-4">
+              <ul className="pagination justify-content-center">
+                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                  <button
                     className="page-link"
-                    href="#"
-                    aria-label="Previous"
-                    onClick={() =>
-                      handlePageChange(currentPage > 1 ? currentPage - 1 : 1)
-                    }
+                    onClick={() => handlePageChange(currentPage - 1)}
                   >
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
+                    Previous
+                  </button>
                 </li>
                 {[...Array(totalPages)].map((_, index) => (
-                  <li className="page-item" key={index + 1}>
-                    <a
+                  <li 
+                    key={index + 1} 
+                    className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+                  >
+                    <button
                       className="page-link"
-                      href="#"
                       onClick={() => handlePageChange(index + 1)}
                     >
                       {index + 1}
-                    </a>
+                    </button>
                   </li>
                 ))}
-                <li className="page-item">
-                  <a
+                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                  <button
                     className="page-link"
-                    href="#"
-                    aria-label="Next"
-                    onClick={() =>
-                      handlePageChange(
-                        currentPage < totalPages ? currentPage + 1 : totalPages
-                      )
-                    }
+                    onClick={() => handlePageChange(currentPage + 1)}
                   >
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
+                    Next
+                  </button>
                 </li>
               </ul>
             </nav>

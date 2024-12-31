@@ -1,16 +1,21 @@
-import { createRoot } from "react-dom/client";
-import "./index.css";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import { BrowserRouter } from "react-router-dom";
-import { AuthProvider } from "./Context/auth";
-import { CartProvider } from "./Context/cart.jsx";
+import { ConfigProvider } from "antd";
+import { theme } from "./utils/theme";
 
-createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <AuthProvider>
-      <CartProvider>
-        <App />
-      </CartProvider>
-    </AuthProvider>
-  </BrowserRouter>
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: theme.colors.primary.main,
+          borderRadius: 8,
+          fontFamily: 'Inter, sans-serif',
+        },
+      }}
+    >
+      <App />
+    </ConfigProvider>
+  </React.StrictMode>
 );

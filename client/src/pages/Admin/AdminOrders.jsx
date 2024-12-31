@@ -8,6 +8,7 @@ import moment from "moment";
 import React from "react";
 import { Reactapi } from "../../api";
 import { Select } from "antd";
+import { FiFilter, FiDownload } from "react-icons/fi";
 
 const AdminOrders = () => {
   const [status, setStatus] = useState([
@@ -63,77 +64,111 @@ const AdminOrders = () => {
     }
   };
   return (
-    <Layout title={"Admin Orders"} description={"Admin Orders"}>
-      <div>
-        <div className="row">
-          <div className="col-md-3">
-            <AdminMenu />
-          </div>
-          <div className="col-md-9">
-            <div className="text-center">All Orders</div>
-            {orders?.map((order, index) => {
-              return (
-                <div key={index} className="border shadow">
-                  <table className="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Order ID</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Buyer</th>
-                        <th scope="col">Time</th>
-                        <th scope="col">Payment</th>
-                        <th scope="col">Quantity</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>{index + 1}</td>
-                        <Select
-                          defaultValue={order?.status}
-                          style={{ width: 120 }}
-                          onChange={(value, orderId) =>
-                            handleChange(value, order._id)
-                          }
-                        >
-                          {status.map((item, index) => (
-                            <Select.Option key={index} value={item}>
-                              {item}
-                            </Select.Option>
-                          ))}
-                        </Select>
+    <Layout title="Admin Orders" description="Manage Orders">
+      <div className="admin-layout">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-md-3 admin-sidebar">
+              <AdminMenu />
+            </div>
+            <div className="col-md-9 admin-content">
+              <div className="admin-card p-4 mb-4">
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                  <h3 className="mb-0">Order Management</h3>
+                  <div className="btn-group">
+                    <button className="btn btn-outline-primary">
+                      <FiFilter className="me-2" />
+                      Filter
+                    </button>
+                    <button className="btn btn-outline-primary">
+                      <FiDownload className="me-2" />
+                      Export
+                    </button>
+                  </div>
+                </div>
 
-                        <td>{order?.buyer?.name}</td>
-                        <td>{moment(order?.createdAt).fromNow()}</td>
-                        <td>
-                          {order?.payment?.razorpay_payment_id ? (
-                            <span className="text-success">Paid</span>
-                          ) : (
-                            <span className="text-danger">Pending</span>
-                          )}
-                        </td>
-                        <td>{order?.products?.length}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  {order?.products?.map((item, index) => (
-                    <div key={index} className="row p-2">
-                      <div className="col-md-4">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="img-fluid"
-                        />
-                      </div>
-                      <div className="col-md-8">
-                        <h4>{item.name}</h4>
-                        <p>{item.description}</p>
-                        <p>Price: {item.price}</p>
+                {orders?.map((order, index) => (
+                  <div key={index} className="admin-card mb-4 fade-in" 
+                       style={{ animationDelay: `${index * 0.1}s` }}>
+                    <div className="card-header bg-light p-3">
+                      <div className="row align-items-center">
+                        <div className="col">
+                          <h5 className="mb-0">Order #{order._id}</h5>
+                        </div>
+                        <div className="col-auto">
+                          <Select
+                            value={order?.status}
+                            onChange={(value) => handleChange(value, order._id)}
+                            className="min-w-[150px]"
+                          >
+                            {status.map((item) => (
+                              <Select.Option key={item} value={item}>
+                                {item}
+                              </Select.Option>
+                            ))}
+                          </Select>
+                        </div>
                       </div>
                     </div>
-                  ))}
-                </div>
-              );
-            })}
+
+                    <div className="card-body p-4">
+                      <div className="row mb-4">
+                        <div className="col-md-3">
+                          <small className="text-muted d-block mb-1">Customer</small>
+                          <strong>{order?.buyer?.name}</strong>
+                        </div>
+                        <div className="col-md-3">
+                          <small className="text-muted d-block mb-1">Date</small>
+                          <strong>{moment(order?.createdAt).format('MMM D, YYYY')}</strong>
+                        </div>
+                        <div className="col-md-3">
+                          <small className="text-muted d-block mb-1">Payment Status</small>
+                          <span className={`badge ${
+                            order?.payment?.razorpay_payment_id 
+                              ? 'bg-success' 
+                              : 'bg-warning'
+                          }`}>
+                            {order?.payment?.razorpay_payment_id ? 'Paid' : 'Pending'}
+                          </span>
+                        </div>
+                        <div className="col-md-3">
+                          <small className="text-muted d-block mb-1">Items</small>
+                          <strong>{order?.products?.length} items</strong>
+                        </div>
+                      </div>
+
+                      <div className="table-responsive">
+                        <table className="table admin-table">
+                          <thead>
+                            <tr>
+                              <th>Product</th>
+                              <th>Name</th>
+                              <th>Price</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {order?.products?.map((item, idx) => (
+                              <tr key={idx}>
+                                <td>
+                                  <img 
+                                    src={item.image} 
+                                    alt={item.name} 
+                                    className="img-fluid rounded"
+                                    style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+                                  />
+                                </td>
+                                <td>{item.name}</td>
+                                <td>${item.price}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
